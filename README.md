@@ -6,6 +6,10 @@ Monitor GitHub PR checks and get push notifications on your phone when builds co
 
 1. **Install dependencies:**
    ```bash
+   # For Node.js/TypeScript (recommended)
+   npm install
+   
+   # For Python (legacy)
    pip install requests python-dotenv
    ```
 
@@ -19,23 +23,33 @@ Monitor GitHub PR checks and get push notifications on your phone when builds co
    - Subscribe to a unique topic (e.g., `your-name-pr-builds`)
 
 4. **Configure environment:**
-   - Copy `.env.example` to `.env`
+   - Create `.env` file
    - Set your `GITHUB_TOKEN`
    - Set `NTFY_TOPIC` to your ntfy topic
-   - Set `GITHUB_ENTERPRISE_URL` if using Enterprise (leave as https://github.com for public)
+   - Set `GITHUB_ENTERPRISE_URL` if using Enterprise
    - Optionally set `REPO_URL` for default repository
 
 ## Usage
 
+**Node.js/TypeScript (recommended):**
 ```bash
 # Monitor specific PR
-python pr-notifier.py "https://github.com/owner/repo/pull/123"
+npm run dev "https://github.com/owner/repo/pull/123"
 
 # Monitor all PRs in repository  
-python pr-notifier.py "https://github.com/owner/repo"
+npm start "https://github.com/owner/repo"
 
 # Use default repo from .env
-python pr-notifier.py
+npm run dev
+```
+
+**Python (legacy):**
+```bash
+# Monitor specific PR
+python scripts/pr-notifier.py "https://github.com/owner/repo/pull/123"
+
+# Monitor all PRs in repository  
+python scripts/pr-notifier.py "https://github.com/owner/repo"
 ```
 
 Press `Ctrl+C` to stop monitoring.
