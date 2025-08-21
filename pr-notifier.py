@@ -12,7 +12,7 @@ load_dotenv()
 # --- Configuration ---
 # Script sẽ ưu tiên đọc từ biến môi trường, nếu không có sẽ đọc từ file .env
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-NTFY_TOPIC = os.getenv("NTFY_TOPIC", "hieudt-pr-builds-status-channel")
+NTFY_TOPIC = os.getenv("NTFY_TOPIC")
 POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", 60))
 GITHUB_ENTERPRISE_URL = os.getenv("GITHUB_ENTERPRISE_URL")
 REPO_URL_FROM_ENV = os.getenv("REPO_URL")
@@ -222,6 +222,10 @@ def main():
 
     if not GITHUB_TOKEN:
         print("❌ Error: GITHUB_TOKEN not found. Please set it in your environment or a .env file.")
+        sys.exit(1)
+
+    if not NTFY_TOPIC:
+        print("❌ Error: NTFY_TOPIC not found. Please set it in your environment or a .env file.")
         sys.exit(1)
 
     target_url = args.url if args.url else REPO_URL_FROM_ENV
