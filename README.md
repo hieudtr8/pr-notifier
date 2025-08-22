@@ -8,10 +8,6 @@ Monitor GitHub PR checks and get push notifications on your phone when builds co
    ```bash
    # For Node.js/TypeScript (recommended)
    npm install
-   
-   # For Python (legacy)
-   pip install requests python-dotenv
-   ```
 
 2. **Create GitHub token:**
    - Go to GitHub Settings > Developer settings > Personal access tokens
@@ -44,15 +40,6 @@ npm start "https://github.com/owner/repo"
 
 # Use default repo from .env
 npm run dev
-```
-
-**Python (legacy):**
-```bash
-# Monitor specific PR
-python scripts/pr-notifier.py "https://github.com/owner/repo/pull/123"
-
-# Monitor all PRs in repository  
-python scripts/pr-notifier.py "https://github.com/owner/repo"
 ```
 
 Press `Ctrl+C` to stop monitoring.
