@@ -21,11 +21,21 @@ export function loadConfig(): Config {
     process.exit(1);
   }
 
+  const specificPrNumbers = process.env.SPECIFIC_PR_NUMBERS
+    ? process.env.SPECIFIC_PR_NUMBERS
+        .split(',')
+        .map(num => parseInt(num.trim(), 10))
+        .filter(num => !isNaN(num))
+    : undefined;
+
   return {
     githubToken,
     ntfyTopic,
     pollInterval: parseInt(process.env.POLL_INTERVAL || '60', 10),
-    githubEnterpriseUrl: process.env.GITHUB_ENTERPRISE_URL,
     repoUrl: process.env.REPO_URL,
+    specificPrNumbers,
+    httpProxy: process.env.HTTP_PROXY,
+    httpsProxy: process.env.HTTPS_PROXY,
+    insecureSSL: process.env.INSECURE_SSL === 'true',
   };
 }

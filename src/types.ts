@@ -2,8 +2,11 @@ export interface Config {
   githubToken: string;
   ntfyTopic: string;
   pollInterval: number;
-  githubEnterpriseUrl?: string;
   repoUrl?: string;
+  specificPrNumbers?: number[];
+  httpProxy?: string;
+  httpsProxy?: string;
+  insecureSSL?: boolean;
 }
 
 export interface PRData {

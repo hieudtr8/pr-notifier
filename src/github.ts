@@ -15,6 +15,7 @@ export class GitHubClient {
     const url = `${this.apiBaseUrl}/repos/${owner}/${repo}/pulls/${prNumber}`;
     const response: AxiosResponse<PRData> = await axios.get(url, {
       headers: this.headers,
+      timeout: 8000,
     });
     return response.data;
   }
@@ -23,6 +24,7 @@ export class GitHubClient {
     const url = `${this.apiBaseUrl}/repos/${owner}/${repo}/pulls`;
     const response: AxiosResponse<PRData[]> = await axios.get(url, {
       headers: this.headers,
+      timeout: 8000,
     });
     return response.data;
   }
@@ -35,8 +37,31 @@ export class GitHubClient {
     const url = `${this.apiBaseUrl}/repos/${owner}/${repo}/commits/${commitSha}/check-runs`;
     const response: AxiosResponse<CheckRunsResponse> = await axios.get(url, {
       headers: this.headers,
+      timeout: 8000,
     });
     return response.data;
+  }
+
+  async getPRStatusSummary(
+    owner: string,
+    repo: string,
+    prNumber: number,
+    prTitle: string,
+    commitSha: string
+  ): Promise<{
+    prNumber: number;
+    prTitle: string;
+    status: CheckStatus;
+    isCompleted: boolean;
+    message?: string;
+    conclusion?: string;
+  }> {
+    const result = await this.checkCommitStatus(owner, repo, prNumber, prTitle, commitSha);
+    return {
+      prNumber,
+      prTitle,
+      ...result
+    };
   }
 
   async checkCommitStatus(

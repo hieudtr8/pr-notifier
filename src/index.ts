@@ -28,12 +28,17 @@ async function main() {
     process.exit(1);
   }
 
-  const apiBaseUrl = getApiBaseUrl(targetUrl, config.githubEnterpriseUrl);
+  const apiBaseUrl = getApiBaseUrl(targetUrl);
   console.log(`✅ API Endpoint set to: ${apiBaseUrl}`);
 
   const githubClient = new GitHubClient(apiBaseUrl, config.githubToken);
-  const notifier = new NotificationService(config.ntfyTopic);
-  const monitor = new PRMonitor(githubClient, notifier, config.pollInterval);
+  const notifier = new NotificationService(config.ntfyTopic, config);
+  const monitor = new PRMonitor(
+    githubClient,
+    notifier,
+    config.pollInterval,
+    config.specificPrNumbers
+  );
 
   // Handle graceful shutdown
   process.on('SIGINT', () => {
